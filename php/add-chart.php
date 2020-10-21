@@ -21,7 +21,15 @@ $country = $db->safeString($_POST['country']);
 $source = $db->safeString($_POST['source']);
 $description = $db->safeString($_POST['description']);
 $chartType = $db->safeString($_POST['chart-type']);
-$fileName = strtolower($chartType) . '.jpg';
+$fileName;
+switch($chartType) {
+    case Constants::IMAGE_TYPE:
+        $fileName = Constants::IMAGE_FILENAME;
+        break;
+    case Constants::DATA_TYPE:
+        $fileName = Constants::DATA_FILENAME;
+        break;
+}
 
 $result = $db->query("INSERT INTO charts (title, subtitle, tags, country, source, description,
                                 type, createTimestamp, modifyTimestamp)

@@ -1,9 +1,9 @@
 <?php
 class DBConnection {
     private const DB_SERVER = 'localhost';
-    private const DB_USERNAME = 'id15055296_wykresy_user';
-    private const DB_PASSWORD = 'Mastodont24!';
-    private const DB_NAME = 'id15055296_wykresy';
+    private const DB_USERNAME = 'dobrewykresy';
+    private const DB_PASSWORD = 'Australopitek24!';
+    private const DB_NAME = 'dobre_wykresy';
 
     public $connection;
 
@@ -29,6 +29,14 @@ class DBConnection {
 
     public function lastId() {
         return $this->connection->insert_id;
+    }
+
+    public function fetchSingleRow($table, $id) {
+        $result = $this->connection->query("SELECT * FROM $table WHERE id = '$id'");
+        if($result && $result->num_rows == 1) {
+            return $result->fetch_assoc();
+        }
+        return null;
     }
 }
 ?>

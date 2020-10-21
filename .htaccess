@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^charts/([^/]+)/?$ chart.php?id=$1 [L]
