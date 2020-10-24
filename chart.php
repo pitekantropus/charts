@@ -1,4 +1,6 @@
 <?php
+require_once('php/utils/Session.php');
+$session = new Session();
 require_once('php/utils/Chart.php');
 if(!isset($_GET['id'])) {
     die('No id provided!');

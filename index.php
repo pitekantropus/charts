@@ -1,10 +1,15 @@
+<?php
+require_once('php/utils/Session.php');
+$session = new Session();
+?>
+
 <!doctype html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Wykresy</title>
-        <link rel="stylesheet" href="css/common.css">
-        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="/css/common.css">
+        <link rel="stylesheet" href="/css/index.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     </head>
@@ -15,8 +20,8 @@
                     <h3>NOMBRE</h3>
                 </div>
                 <div id="top-login-buttons">
-                    <a href="login.php" id="login-button" class="top-button">Zaloguj się</a>
-                    <a href="register.php" id="register-button" class="top-button">Załóż konto</a>
+                    <a href="/login/" id="login-button" class="top-button">Zaloguj się</a>
+                    <a href="/register/" id="register-button" class="top-button">Załóż konto</a>
                 </div>
             </div>
             <h1>Wykresy z całego Internetu<br>zebrane w jednym miejscu</h1>

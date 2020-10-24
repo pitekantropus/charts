@@ -21,7 +21,7 @@ class Chart {
 
     private function fetchData() {
         $db = new DBConnection();
-        $result = $db->fetchSingleRow('charts', $this->id);
+        $result = $db->fetchSingleRowById('charts', $this->id);
         if(!$result) {
             die('Failed to fetch data from chart: ' . $this->id);
         }

@@ -31,8 +31,12 @@ class DBConnection {
         return $this->connection->insert_id;
     }
 
-    public function fetchSingleRow($table, $id) {
-        $result = $this->connection->query("SELECT * FROM $table WHERE id = '$id'");
+    public function fetchSingleRowById($table, $id) {
+        return $this->fetchSingleRow($table, 'id', $id);
+    }
+
+    public function fetchSingleRow($table, $column, $value) {
+        $result = $this->connection->query("SELECT * FROM $table WHERE $column = '$value'");
         if($result && $result->num_rows == 1) {
             return $result->fetch_assoc();
         }

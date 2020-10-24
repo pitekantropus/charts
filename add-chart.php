@@ -1,10 +1,18 @@
+<?php
+require_once('php/utils/Session.php');
+$session = new Session();
+if(!$session->checkPermission('add-chart')) {
+    header("location: /");
+}
+?>
+
 <!doctype html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Dodaj wykres</title>
-        <link rel="stylesheet" href="css/common.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
-        <link rel="stylesheet" href="css/add-chart.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
+        <link rel="stylesheet" href="/css/common.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
+        <link rel="stylesheet" href="/css/add-chart.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     </head>
@@ -45,6 +53,6 @@
             <input id="submit-button" name="submit" type="submit" value="Prześlij wykres">
         </form>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="js/add-chart.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
+        <script src="/js/add-chart.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
     </body>
 </html>
