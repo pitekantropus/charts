@@ -48,7 +48,7 @@ class Chart {
 <?php
 switch($this->chartType) {
     case Constants::IMAGE_TYPE:
-        echo "<img id='chart-image\ src='$this->filePath'>";
+        echo "<img id='chart-image' src='$this->filePath'>";
         break;
     case Constants::DATA_TYPE:
         echo "<div id='chart-container'>";

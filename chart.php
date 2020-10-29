@@ -29,6 +29,6 @@ $chart->printChartSection();
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <script src="/libs/papaparse/papaparse.js"></script>
-        <script src="/js/draw-chart.js"></script>
+        <script type="module" src="/js/draw-chart.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
     </body>
 </html>

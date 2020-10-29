@@ -1,11 +1,9 @@
 <?php
-require_once 'LoginUtils.php';
-session_start();
-$_SESSION = array();
-session_destroy();
-destroyCookie('remember_id');
-destroyCookie('remember_hash');
+require_once('utils/Session.php');
 
-header('location: ../index.php');
-exit;
+$session = new Session(false);
+$session->logout();
+
+header('location: /');
+die();
 ?>

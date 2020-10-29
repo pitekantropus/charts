@@ -1,6 +1,7 @@
 <?php
 require_once('php/utils/Session.php');
 $session = new Session();
+$addPermission = $session->checkPermission('add-chart');
 ?>
 
 <!doctype html>
@@ -20,8 +21,18 @@ $session = new Session();
                     <h3>NOMBRE</h3>
                 </div>
                 <div id="top-login-buttons">
+<?php
+if($addPermission) {
+?>
+                    <a href="/add-chart/" id="add-chart-button" class="top-button">Dodaj wykres</a>
+<?php
+} else {
+?>
                     <a href="/login/" id="login-button" class="top-button">Zaloguj się</a>
                     <a href="/register/" id="register-button" class="top-button">Załóż konto</a>
+<?php
+}
+?>
                 </div>
             </div>
             <h1>Wykresy z całego Internetu<br>zebrane w jednym miejscu</h1>

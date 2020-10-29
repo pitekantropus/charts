@@ -2,3 +2,4 @@ RewriteEngine on
 RewriteRule ^charts/([^/]+)/?$ chart.php?id=$1 [L]
 RewriteRule ^register/?$ register.php [L]
 RewriteRule ^login/?$ login.php [L]
+RewriteRule ^add-chart/?$ add-chart.php [L]

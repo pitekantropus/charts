@@ -5,4 +5,11 @@ function addProtocolToUrlIfNeeded($url) {
     }
     return $url;
 }
+
+function assertPost() {
+    if($_SERVER['REQUEST_METHOD'] != 'POST') {
+        header('location: /');
+        die();
+    }
+}
 ?>

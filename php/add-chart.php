@@ -1,11 +1,10 @@
 <?php
+require_once 'utils/functions.php';
+assertPost();
+
 require_once 'utils/DBConnection.php';
 require_once 'utils/FileUpload.php';
-
-if($_SERVER['REQUEST_METHOD'] != 'POST') {
-    header("location: ../index.php");
-    die();
-}
+require_once 'utils/Constants.php';
 
 $chartFile = new FileUpload('chart-file');
 if(!$chartFile->isUploaded()) {
@@ -15,12 +14,35 @@ if(!$chartFile->isUploaded()) {
 $db = new DBConnection();
 
 $title = $db->safeString($_POST['title']);
-$subtitle = $db->safeString($_POST['subtitle']);
-$tags = $db->safeString($_POST['tags']);
 $country = $db->safeString($_POST['country']);
 $source = $db->safeString($_POST['source']);
 $description = $db->safeString($_POST['description']);
 $chartType = $db->safeString($_POST['chart-type']);
+
+$categories = '';
+if(empty($_POST['categories'])) {
+    die('No categories');
+}
+foreach($_POST['categories'] as $category) {
+    $categories = $categories . $db->safeString($category) . ';';
+}
+$categories = substr($categories, 0, -1);
+
+$timespan = '';
+if(!empty($_POST['start-month'])) {
+    $timespan = $db->safeString($_POST['start-month']) . '.';
+}
+if(!empty($_POST['start-year'])) {
+    $timespan .= $db->safeString($_POST['start-year']);
+}
+$timespan .= ';';
+if(!empty($_POST['end-month'])) {
+    $timespan .= $db->safeString($_POST['end-month']) . '.';
+}
+if(!empty($_POST['end-year'])) {
+    $timespan .= $db->safeString($_POST['end-year']);
+}
+
 $fileName;
 switch($chartType) {
     case Constants::IMAGE_TYPE:
@@ -31,16 +53,16 @@ switch($chartType) {
         break;
 }
 
-$result = $db->query("INSERT INTO charts (title, subtitle, tags, country, source, description,
+$result = $db->query("INSERT INTO charts (title, categories, timespan, country, source, description,
                                 type, createTimestamp, modifyTimestamp)
-                                VALUES ('$title', '$subtitle', '$tags', '$country', '$source',
+                                VALUES ('$title', '$categories', '$timespan', '$country', '$source',
                                 '$description', '$chartType', now(), now())");
 if(!$result) {
     die('Failed to insert chart.');
 }
 
 $lastId = $db->lastId();
-
 $chartFile->moveDataFile($lastId, $fileName);
-print('File uploaded');
+
+header("location: /charts/$lastId/");
 ?>

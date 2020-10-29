@@ -100,6 +100,13 @@ class Session {
         return true;
     }
 
+    public function logout() {
+        $_SESSION = array();
+        session_destroy();
+        destroyCookie('rememberId');
+        destroyCookie('rememberHash');
+    }
+
     public function setSessionVariable($name, $value) {
         $_SESSION[$name] = $value;
         $this->variables[$name] = $value;
