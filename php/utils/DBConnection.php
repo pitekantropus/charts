@@ -42,5 +42,21 @@ class DBConnection {
         }
         return null;
     }
+
+    public function fetchFromTable($table, $columns, $conditions = null) {
+        $query = "SELECT $columns FROM $table";
+        if(!is_null($conditions)) {
+            $query .= " WHERE $conditions";
+        }
+        $result = $this->connection->query($query);
+        if(!$result) {
+            return null;
+        }
+        $array = array();
+        while($row = $result->fetch_assoc()) {
+            $array[] = $row;
+        }
+        return $array;
+    }
 }
 ?>

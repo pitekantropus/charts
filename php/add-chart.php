@@ -14,6 +14,7 @@ if(!$chartFile->isUploaded()) {
 $db = new DBConnection();
 
 $title = $db->safeString($_POST['title']);
+$urlName = convertTitleToUrlName($title);
 $country = $db->safeString($_POST['country']);
 $source = $db->safeString($_POST['source']);
 $description = $db->safeString($_POST['description']);
@@ -53,9 +54,9 @@ switch($chartType) {
         break;
 }
 
-$result = $db->query("INSERT INTO charts (title, categories, timespan, country, source, description,
+$result = $db->query("INSERT INTO charts (title, urlName, categories, timespan, country, source, description,
                                 type, createTimestamp, modifyTimestamp)
-                                VALUES ('$title', '$categories', '$timespan', '$country', '$source',
+                                VALUES ('$title', '$urlName', '$categories', '$timespan', '$country', '$source',
                                 '$description', '$chartType', now(), now())");
 if(!$result) {
     die('Failed to insert chart.');

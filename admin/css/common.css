@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    background: #FFFFFF;
+}
+
+input, textarea, button {
+    outline: none;
+}
+
+.empty-filler {
+    flex-grow: 1;
+}
+
+/* ################ */
+
+header {
+    display: flex;
+    width: 100%;
+    height: 76px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 80px;
+    box-shadow: 6px 6px 19px rgba(33, 65, 119, 0.12);
+}
+
+#logo {
+    font-family: Poppins;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 130.5%;
+    color: #000000;
+    opacity: 0.2;
+    margin-right: 14px;
+}
+
+#menu {
+    display: flex;
+}
+
+.menu-button {
+    display: flex;
+    padding: 15px 30px;
+}
+
+.menu-button img {
+    width: 20px;
+    margin-right: 16px;
+}
+
+.menu-button h3 {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.top-button {
+    padding: 13px 32px;
+    border-radius: 3px;
+    font-family: Poppins;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#add-chart-button {
+    background: #214177;
+    box-shadow: 6px 6px 19px rgba(33, 65, 119, 0.23);
+    color: #F9F9F9;
+    margin-right: 10px;
+}
+
+#logout-button {
+    border: 2px solid #214177;
+    color: #214177;
+}
