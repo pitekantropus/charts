@@ -58,5 +58,36 @@ class DBConnection {
         }
         return $array;
     }
+
+    public function insertIntoTable($table, $valuesMap) {
+        $columns = '';
+        $values = '';
+        foreach($valuesMap as $column => $value) {
+            $columns .= "$column, ";
+            $values .= "'$value, ";
+        }
+        $columns = substr($columns, 0, -2);
+        $values = substr($values, 0, -2);
+        $query = "INSERT INTO $table ($columns) VALUES ($values)";
+        $result = $this->connection->query($query);
+        if(!$result) {
+            return false;
+        }
+        return true;
+    }
+
+    public function updateTable($table, $valuesMap, $conditions) {
+        $query = "UPDATE $table SET";
+        foreach($valuesMap as $column => $value) {
+            $query .= " $column = '$value',";
+        }
+        $query = substr($query, 0, -1);
+        $query .= " WHERE $conditions";
+        $result = $this->connection->query($query);
+        if(!$result) {
+            return false;
+        }
+        return true;
+    }
 }
 ?>

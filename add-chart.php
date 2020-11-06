@@ -4,21 +4,22 @@ $session = new Session();
 if(!$session->checkPermission('add-chart')) {
     header("location: /");
 }
+require_once('php/utils/Constants.php');
 
 function printMonthsOptions() {
-    echo "<option value=''>Miesiąc (opcjonalnie)</option>";
-    echo "<option value='0'>Styczeń</option>";
-    echo "<option value='1'>Luty</option>";
-    echo "<option value='2'>Marzec</option>";
-    echo "<option value='3'>Kwiecień</option>";
-    echo "<option value='4'>Maj</option>";
-    echo "<option value='5'>Czerwiec</option>";
-    echo "<option value='6'>Lipiec</option>";
-    echo "<option value='7'>Sierpień</option>";
-    echo "<option value='8'>Wrzesień</option>";
-    echo "<option value='9'>Październik</option>";
-    echo "<option value='10'>Listopad</option>";
-    echo "<option value='11'>Grudzień</option>";
+    echo "<option value='0'>Miesiąc (opcjonalnie)</option>";
+    foreach($GLOBALS['MONTHS_MAP'] as $month => $fullMonth) {
+        echo "<option value='$month'>$fullMonth</option>";
+    }
+}
+
+function printCategoriesCheckboxes() {
+    foreach($GLOBALS['CATEGORIES_MAP'] as $category => $fullCategory) {
+        echo '<label class="category-label">';
+        echo "<input type='checkbox' name='categories[]' value='$category'>";
+        echo "<div class='custom-checkbox'></div>$fullCategory";
+        echo '</label>';
+    }
 }
 ?>
 
@@ -40,26 +41,9 @@ function printMonthsOptions() {
                 <input name="title" type="text" placeholder="Tytuł wykresu">
             </label>
             <p class="field-header">Kategorie</p>
-            <label class="category-label">
-                <input type="checkbox" name="categories[]" value="health">
-                <div class="custom-checkbox"></div>Zdrowie i życie
-            </label>
-            <label class="category-label">
-                <input type="checkbox" name="categories[]" value="economy">
-                <div class="custom-checkbox"></div>Ekonomia
-            </label>
-            <label class="category-label">
-                <input type="checkbox" name="categories[]" value="demography">
-                <div class="custom-checkbox"></div>Demografia
-            </label>
-            <label class="category-label">
-                <input type="checkbox" name="categories[]" value="geology">
-                <div class="custom-checkbox"></div>Geologia
-            </label>
-            <label class="category-label">
-                <input type="checkbox" name="categories[]" value="interesting">
-                <div class="custom-checkbox"></div>Ciekawostki
-            </label>
+<?php
+printCategoriesCheckboxes();
+?>
             <p class="field-header">Zakres lat</p>
             <div class="horizontal-container timespan-container">
                 <div class="vertical-container timespan-single-container">

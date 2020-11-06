@@ -1,4 +1,4 @@
-import { drawChart } from './chart-utils.js';
+import { drawChart } from './chart-utils.js?v=3';
 
 $(function() {
     if($('#chart-container').length == 0) {

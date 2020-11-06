@@ -3,7 +3,7 @@
 function includeTopBar() {
 ?>
         <header>
-            <div id="logo">DobreWykresy</div>
+            <div id="logo"><a href="/">DobreWykresy</a></div>
             <div id="menu">
                 <a href="/admin/dashboard/" class="menu-button">
                     <img src="/admin/images/dashboard-icon.svg">

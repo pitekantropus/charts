@@ -31,7 +31,7 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-#add-chart-form {
+#add-chart-form, #edit-chart-form {
     display: flex;
     flex-direction: column;
     width: 733px;
@@ -123,7 +123,7 @@ textarea {
     height: 200px;
 }
 
-#add-chart-area {
+#add-chart-area, #edit-chart-area {
     display: flex;
 }
 

@@ -1,4 +1,9 @@
 <?php
+require_once('utils/Session.php');
+$session = new Session();
+if(!$session->checkPermission('admin')) {
+    header("location: /");
+}
 require_once 'utils/functions.php';
 assertPost();
 
@@ -7,12 +12,10 @@ require_once 'utils/FileUpload.php';
 require_once 'utils/Constants.php';
 
 $chartFile = new FileUpload('chart-file');
-if(!$chartFile->isUploaded()) {
-    die('No file present');
-}
 
 $db = new DBConnection();
 
+$id = $db->safeString($_POST['id']);
 $title = $db->safeString($_POST['title']);
 $urlName = convertTitleToUrlName($title);
 $country = $db->safeString($_POST['country']);
@@ -43,16 +46,28 @@ switch($chartType) {
         break;
 }
 
-$result = $db->query("INSERT INTO charts (title, urlName, categories, startMonth, startYear, endMonth, endYear,
-                                country, source, description, type, createTimestamp, modifyTimestamp)
-                                VALUES ('$title', '$urlName', '$categories', '$startMonth', '$startYear', '$endMonth',
-                                '$endYear', '$country', '$source', '$description', '$chartType', now(), now())");
+$valuesMap = array(
+    'title' => $title,
+    'urlName' => $urlName,
+    'categories' => $categories,
+    'startMonth' => $startMonth,
+    'startYear' => $startYear,
+    'endMonth' => $endMonth,
+    'endYear' => $endYear,
+    'country' => $country,
+    'source' => $source,
+    'description' => $description,
+    'type' => $chartType,
+    'modifyTimestamp' => 'now()'
+);
+$result = $db->updateTable('charts', $valuesMap, "id = '$id'");
 if(!$result) {
-    die('Failed to insert chart.');
+    die('Failed to update chart.');
 }
 
-$lastId = $db->lastId();
-$chartFile->moveDataFile($lastId, $fileName);
+if($chartFile->isUploaded()) {
+    $chartFile->moveDataFile($id, $fileName);
+}
 
-header("location: /charts/$lastId/");
+header("location: /charts/$id/");
 ?>

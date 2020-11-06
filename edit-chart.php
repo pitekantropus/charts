@@ -10,23 +10,31 @@ if(!isset($_GET['id'])) {
 }
 $id = $_GET['id'];
 
-function printMonthsOptions() {
-    echo "<option value=''>Miesiąc (opcjonalnie)</option>";
-    echo "<option value='0'>Styczeń</option>";
-    echo "<option value='1'>Luty</option>";
-    echo "<option value='2'>Marzec</option>";
-    echo "<option value='3'>Kwiecień</option>";
-    echo "<option value='4'>Maj</option>";
-    echo "<option value='5'>Czerwiec</option>";
-    echo "<option value='6'>Lipiec</option>";
-    echo "<option value='7'>Sierpień</option>";
-    echo "<option value='8'>Wrzesień</option>";
-    echo "<option value='9'>Październik</option>";
-    echo "<option value='10'>Listopad</option>";
-    echo "<option value='11'>Grudzień</option>";
+function printMonthsOptions($month) {
+    echo "<option value='0'>Miesiąc (opcjonalnie)</option>";
+    foreach($GLOBALS['MONTHS_MAP'] as $monthNumber => $fullMonth) {
+        if($month == $monthNumber) {
+            echo "<option value='$monthNumber' selected>$fullMonth</option>";
+        } else {
+            echo "<option value='$monthNumber'>$fullMonth</option>";
+        }
+    }
+}
+
+function printCategoriesCheckboxes($categoriesMap) {
+    foreach($GLOBALS['CATEGORIES_MAP'] as $category => $fullCategory) {
+        $checked = $categoriesMap[$category];
+        echo '<label class="category-label">';
+        echo "<input type='checkbox' name='categories[]' value='$category'$checked>";
+        echo "<div class='custom-checkbox'></div>$fullCategory";
+        echo '</label>';
+    }
 }
 
 $chart = new Chart($id);
+$categoriesMap = $chart->categoriesMapWithValues(' checked');
+$startYear = $chart->startYear == 0 ? '' : $chart->startYear;
+$endYear = $chart->endYear == 0 ? '' : $chart->endYear;
 
 ?>
 
@@ -40,52 +48,36 @@ $chart = new Chart($id);
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     </head>
-    <body>
-        <form id="edit-chart-form" method="POST" enctype="multipart/form-data" action="/admin/php/edit-chart.php">
+    <body data-id="<?= $id?>">
+        <form id="edit-chart-form" method="POST" enctype="multipart/form-data" action="/php/edit-chart.php">
+            <input type="hidden" name="id" value="<?php echo $id;?>">
             <h1>Edytuj wykres</h1>
             <h3>Opis wykresu</h3>
             <label class="input-label"><span class="label-header">Nazwa</span>
                 <input name="title" type="text" placeholder="Tytuł wykresu" value="<?= $chart->title ?>">
             </label>
             <p class="field-header">Kategorie</p>
-            <label class="category-label">
-                <input type="checkbox" name="categories[]" value="health">
-                <div class="custom-checkbox"></div>Zdrowie i życie
-            </label>
-            <label class="category-label">
-                <input type="checkbox" name="categories[]" value="economy">
-                <div class="custom-checkbox"></div>Ekonomia
-            </label>
-            <label class="category-label">
-                <input type="checkbox" name="categories[]" value="demography">
-                <div class="custom-checkbox"></div>Demografia
-            </label>
-            <label class="category-label">
-                <input type="checkbox" name="categories[]" value="geology">
-                <div class="custom-checkbox"></div>Geologia
-            </label>
-            <label class="category-label">
-                <input type="checkbox" name="categories[]" value="interesting">
-                <div class="custom-checkbox"></div>Ciekawostki
-            </label>
+<?php
+printCategoriesCheckboxes($categoriesMap);
+?>
             <p class="field-header">Zakres lat</p>
             <div class="horizontal-container timespan-container">
                 <div class="vertical-container timespan-single-container">
                     <p class="field-small-header">Od</p>
                     <div class="horizontal-container">
                         <select class="month-selector" name="start-month">
-                            <?php printMonthsOptions(); ?>
+                            <?php printMonthsOptions($chart->startMonth); ?>
                         </select>
-                        <input class="year-selector" type="number" name="start-year" placeholder="Rok">
+                        <input class="year-selector" type="number" name="start-year" placeholder="Rok" value="<?= $startYear?>">
                     </div>
                 </div>
                 <div class="vertical-container timespan-single-container">
                     <p class="field-small-header">Do</p>
                     <div class="horizontal-container">
                         <select class="month-selector" name="end-month">
-                            <?php printMonthsOptions(); ?>
+                            <?php printMonthsOptions($chart->endMonth); ?>
                         </select>
-                        <input class="year-selector" type="number" name="end-year" placeholder="Rok">
+                        <input class="year-selector" type="number" name="end-year" placeholder="Rok" value="<?= $endYear?>">
                     </div>
                 </div>
             </div>
@@ -93,29 +85,29 @@ $chart = new Chart($id);
                 <input name="tags" type="text" placeholder="Słowa kluczowe, podkategorie wykresu">
             </label>
             <label class="input-label"><span class="label-header">Kraj</span>
-                <input name="country" type="text" placeholder="Państwo, którego dotyczy wykres">
+                <input name="country" type="text" placeholder="Państwo, którego dotyczy wykres" value="<?= $chart->country?>">
             </label>
             <label class="input-label"><span class="label-header">Źródło</span>
-                <input name="source" type="text" placeholder="Link do artykułu, badań, surowych danych">
+                <input name="source" type="text" placeholder="Link do artykułu, badań, surowych danych" value="<?= $chart->source?>">
             </label>
             <label class="input-label"><span class="label-header">Dodatkowe informacje o wykresie</span>
-                <textarea name="description"></textarea>
+                <textarea name="description"><?= $chart->description?></textarea>
             </label>
-            <h3>Dodaj wykres</h3>
-            <div id="add-chart-area">
+            <h3>Wykres</h3>
+            <div id="edit-chart-area" data-chart-type="<?= $chart->chartType?>">
                 <div id="chart-data-area">
                     <p class="field-header">Typ wykresu</p>
                     <label class="radio-label">
-                        <input name="chart-type" type="radio" value="IMAGE" checked>
+                        <input name="chart-type" type="radio" value="IMAGE">
                         Obrazek
                     </label>
                     <label class="radio-label">
                         <input name="chart-type" type="radio" value="DATA">
                         Dane w pliku csv
                     </label>
-                    <label for="chart-file-button" id="chart-file-label">Dodaj gotowy wykres</label>
+                    <label for="chart-file-button" id="chart-file-label">Wybierz gotowy wykres</label>
                     <input id="chart-file-button" name="chart-file" accept="image/*" type="file">
-                    <input id="submit-button" name="submit" type="submit" value="Prześlij wykres">
+                    <input id="submit-button" name="submit" type="submit" value="Zapisz wykres">
                 </div>
                 <div id="chart-preview-area">
                 </div>
