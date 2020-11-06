@@ -18,3 +18,30 @@ body {
 input, textarea {
     outline: none;
 }
+
+/* TOP BAR */
+
+#top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 60px;
+}
+
+h3 {
+    font-family: Poppins;
+    font-weight: 300;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.top-button {
+    font-family: Roboto;
+    font-size: 12px;
+    padding: 10px 15px;
+}
+
+#register-button {
+    border: 1px solid #214177;
+    border-radius: 3px;
+}

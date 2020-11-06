@@ -17,6 +17,9 @@ function legendOnClick(e, legendItem, chart) {
     chart.update();
 }
 
+function customLegend(chart) {
+}
+
 export function drawChart(content, canvasId, animation = true) {
     if(!content.data) {
         return;
@@ -99,6 +102,11 @@ export function drawChart(content, canvasId, animation = true) {
             legend: {
                 onClick: function(e, legendItem) {
                     legendOnClick(e, legendItem, chart);
+                },
+                labels: {
+                    fontSize: 13,
+                    fontColor: '#000',
+                    fontFamily: "'Roboto', sans-serif"
                 }
             }
         }

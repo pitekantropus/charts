@@ -19,6 +19,11 @@ input, textarea, button {
     outline: none;
 }
 
+button {
+    background: none;
+    border: none;
+}
+
 .empty-filler {
     flex-grow: 1;
 }

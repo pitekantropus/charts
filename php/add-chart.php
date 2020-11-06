@@ -19,6 +19,10 @@ $country = $db->safeString($_POST['country']);
 $source = $db->safeString($_POST['source']);
 $description = $db->safeString($_POST['description']);
 $chartType = $db->safeString($_POST['chart-type']);
+$startMonth = $db->safeString($_POST['start-month']);
+$startYear = $db->safeString($_POST['start-year']);
+$endMonth = $db->safeString($_POST['end-month']);
+$endYear = $db->safeString($_POST['end-year']);
 
 $categories = '';
 if(empty($_POST['categories'])) {
@@ -29,22 +33,7 @@ foreach($_POST['categories'] as $category) {
 }
 $categories = substr($categories, 0, -1);
 
-$timespan = '';
-if(!empty($_POST['start-month'])) {
-    $timespan = $db->safeString($_POST['start-month']) . '.';
-}
-if(!empty($_POST['start-year'])) {
-    $timespan .= $db->safeString($_POST['start-year']);
-}
-$timespan .= ';';
-if(!empty($_POST['end-month'])) {
-    $timespan .= $db->safeString($_POST['end-month']) . '.';
-}
-if(!empty($_POST['end-year'])) {
-    $timespan .= $db->safeString($_POST['end-year']);
-}
-
-$fileName;
+$fileName = '';
 switch($chartType) {
     case Constants::IMAGE_TYPE:
         $fileName = Constants::IMAGE_FILENAME;
@@ -54,10 +43,10 @@ switch($chartType) {
         break;
 }
 
-$result = $db->query("INSERT INTO charts (title, urlName, categories, timespan, country, source, description,
-                                type, createTimestamp, modifyTimestamp)
-                                VALUES ('$title', '$urlName', '$categories', '$timespan', '$country', '$source',
-                                '$description', '$chartType', now(), now())");
+$result = $db->query("INSERT INTO charts (title, urlName, categories, startMonth, startYear, endMonth, endYear,
+                                country, source, description, type, createTimestamp, modifyTimestamp)
+                                VALUES ('$title', '$urlName', '$categories', '$startMonth', '$startYear', '$endMonth',
+                                '$endYear', '$country', '$source', '$description', '$chartType', now(), now())");
 if(!$result) {
     die('Failed to insert chart.');
 }

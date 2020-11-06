@@ -107,7 +107,41 @@ function removePolishSigns($string) {
 function convertTitleToUrlName($string) {
     $polishSignsRemoved = removePolishSigns($string);
     $lowercase = strtolower($polishSignsRemoved);
-    return str_replace(' ', '+', $lowercase);
+    return str_replace(' ', '-', $lowercase);
+}
+
+function encodeTimespan($startMonth, $startYear, $endMonth, $endYear) {
+    $timespan = '';
+    if(!empty($startMonth)) {
+        $timespan = $startMonth . '.';
+    }
+    if(!empty($startYear)) {
+        $timespan .= $startYear;
+    }
+    $timespan .= ';';
+    if(!empty($endMonth)) {
+        $timespan = $endMonth . '.';
+    }
+    if(!empty($endYear)) {
+        $timespan .= $endYear;
+    }
+    return $timespan;
+}
+
+function decodeTimespan($timespan) {
+    $timespanArray = array();
+    list($start, $end) = explode(';', $timespan);
+    if(strpos($start, '.') !== false) {
+        list($timespanArray['startMonth'], $timespanArray['startYear']) = explode('.', $start);
+    } else {
+        $timespanArray['startYear'] = $start;
+    }
+    if(strpos($end, '.') !== false) {
+        list($timespanArray['endMonth'], $timespanArray['endYear']) = explode('.', $end);
+    } else {
+        $timespanArray['endYear'] = $end;
+    }
+    return $timespanArray;
 }
 
 ?>

@@ -27,6 +27,7 @@ echo '<th class="categories-col">Kategorie</td>';
 echo '<th class="timespan-col">Przedział czasowy</td>';
 echo '<th class="country-col">Państwo</td>';
 echo '<th class="source-col">Źródło</td>';
+echo '<th class="action-col">Akcja</td>';
 echo '</tr>';
 
 foreach($rows as $row) {
@@ -36,14 +37,20 @@ foreach($rows as $row) {
     $timespan = $row['timespan'];
     $country = $row['country'];
     $id = $row['id'];
+    $urlName = $row['urlName'];
     echo '<tr>';
-    echo "<td class='title-cell'><a href='/charts/$id/'>$title</a><a href='/edit-charts/$id/'> [Edytuj]</a></td>";
+    echo "<td class='title-cell'><a href='/charts/$urlName-$id/'>$title</a></td>";
     echo '<td class="labels-cell">';
     printLabels($categories);
     echo '</td>';
     echo "<td>$timespan</td>";
     echo "<td>$country</td>";
     echo "<td class='source-cell'><a href='$sourceUrl'>$sourceUrl</a></td>";
+    echo '<td class="action-cell">';
+    echo "<a class='action' href='/edit-charts/$id/'><div class='icon-container'><img src='/admin/images/edit-icon.svg'></div><span>Edytuj</span></a>";
+    echo "<button class='action hide' data-id='$id'><div class='icon-container'><img src='/admin/images/hide-icon.svg'></div><span>Ukryj</span></button>";
+    echo "<button class='action remove' data-id='$id'><div class='icon-container'><img src='/admin/images/delete-icon.svg'></div><span>Usuń</span></button>";
+    echo '</td>';
     echo '</tr>';
 }
 

@@ -1,12 +1,24 @@
 <?php
 require_once('php/utils/Session.php');
-$session = new Session();
 require_once('php/utils/Chart.php');
-if(!isset($_GET['id'])) {
-    die('No id provided!');
+require_once('php/utils/include-functions.php');
+$session = new Session();
+$logged = $session->isLogged();
+if(!isset($_GET['url'])) {
+    die('No urlName provided!');
 }
-$id = $_GET['id'];
-$chart = new Chart($id);
+$url = $_GET['url'];
+$dashPos = strrpos($url, '-');
+if($dashPos == false) {
+    die('No dash in urlName');
+}
+$urlName = substr($url, 0, $dashPos);
+$id = substr($url, $dashPos+1, strlen($url) - $dashPos - 1);
+$chart = new Chart($id, $urlName);
+if($chart->error) {
+    echo "error: $chart->error";
+    die("No such chart: urlName = $urlName");
+}
 
 ?>
 
@@ -21,6 +33,9 @@ $chart = new Chart($id);
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     </head>
     <body data-id="<?= $id ?>">
+<?php
+includeTopBar($logged);
+?>
         <div id="chart-section">
 <?php
 $chart->printChartSection();

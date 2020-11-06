@@ -1,7 +1,8 @@
 <?php
 require_once('php/utils/Session.php');
+require_once('php/utils/include-functions.php');
 $session = new Session();
-$addPermission = $session->checkPermission('add-chart');
+$logged = $session->isLogged();
 ?>
 
 <!doctype html>
@@ -16,25 +17,9 @@ $addPermission = $session->checkPermission('add-chart');
     </head>
     <body>
         <header>
-            <div id="top-bar">
-                <div id="top-logo">
-                    <h3>NOMBRE</h3>
-                </div>
-                <div id="top-login-buttons">
 <?php
-if($addPermission) {
+includeTopBar($logged);
 ?>
-                    <a href="/add-chart/" id="add-chart-button" class="top-button">Dodaj wykres</a>
-<?php
-} else {
-?>
-                    <a href="/login/" id="login-button" class="top-button">Zaloguj się</a>
-                    <a href="/register/" id="register-button" class="top-button">Załóż konto</a>
-<?php
-}
-?>
-                </div>
-            </div>
             <h1>Wykresy z całego Internetu<br>zebrane w jednym miejscu</h1>
             <form id="search-chart">
                 <input id="search-phrase" type="search" placeholder="Wyszukiwanie">
