@@ -68,3 +68,72 @@ h1 {
     padding: 14px 0;
     margin: 0 8px;
 }
+
+/* SECTIONS */
+
+/* HEADER */
+.category-section {
+    display: flex;
+    flex-direction: column;
+    padding: 19px 60px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+h2 {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.top-new-toggle {
+    display: flex;
+}
+
+.toggle-label {
+    font-family: Roboto;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+.toggle-label span {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+input[type=radio] {
+    display: none;
+}
+
+input[type=radio]:checked + span {
+    color: rgba(0, 0, 0, 1);
+}
+
+/* ATTRACTIONS */
+.section-attractions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.single-attraction {
+    width: 315px;
+}
+
+.attraction-tile {
+    width: 315px;
+    height: 222px;
+    object-fit: cover;
+    object-position: center;
+    margin-bottom: 19px;
+}
+
+.attraction-title {
+    font-family: Poppins;
+    font-size: 14px;
+}

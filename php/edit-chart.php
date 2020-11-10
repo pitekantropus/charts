@@ -69,5 +69,5 @@ if($chartFile->isUploaded()) {
     $chartFile->moveDataFile($id, $fileName);
 }
 
-header("location: /charts/$id/");
+header("location: /charts/$urlName-$id/");
 ?>

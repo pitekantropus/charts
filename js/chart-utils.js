@@ -17,10 +17,7 @@ function legendOnClick(e, legendItem, chart) {
     chart.update();
 }
 
-function customLegend(chart) {
-}
-
-export function drawChart(content, canvasId, animation = true) {
+export function drawChart(content, canvasId, title = '', animation = true) {
     if(!content.data) {
         return;
     }
@@ -87,7 +84,9 @@ export function drawChart(content, canvasId, animation = true) {
             animation: animation,
             events: ['click'],
             title: {
-                display: false,
+                display: true,
+                text: title,
+                fontSize: 15
             },
             scales: {
                 xAxes: [{

@@ -5,10 +5,11 @@ $(function() {
         return;
     }
     const chartId = $("body").data("id");
+    const title = $("#title").text();
     Papa.parse('/data/' + chartId + '/data.csv', {
         download: true,
         complete: function(results) {
-            drawChart(results, 'chart-canvas');
+            drawChart(results, 'chart-canvas', title);
         }
     });
 });

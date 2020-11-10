@@ -10,8 +10,8 @@ $logged = $session->isLogged();
     <head>
         <meta charset="UTF-8">
         <title>Wykresy</title>
-        <link rel="stylesheet" href="/css/common.css">
-        <link rel="stylesheet" href="/css/index.css">
+        <link rel="stylesheet" href="/css/common.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
+        <link rel="stylesheet" href="/css/index.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     </head>
@@ -33,6 +33,40 @@ includeTopBar($logged);
                 <a href="interesting.php" class="category-button">Ciekawostki</a>
             </div>
         </header>
+        <section id="this-week" class="category-section">
+            <div class="section-header">
+                <h2>W tym tygodniu</h2>
+                <div class="top-new-toggle" data-category="this-week">
+                    <label class="toggle-label top-label">
+                        <input name="this-week" type="radio" class="top-new-radio" value="top" checked>
+                        <span>Popularne</span>
+                    </label>
+                    <label class="toggle-label new-label">
+                        <input name="this-week" type="radio" class="top-new-radio" value="new">
+                        <span>Najnowsze</span>
+                    </label>
+                </div>
+            </div>
+            <div class="section-attractions" id="this-week-attractions">
+                <div class="single-attraction">
+                    <img class="attraction-tile" alt="Wykres">
+                    <p class="attraction-title">Jakiś tam przykładowy tytuł</p>
+                </div>
+                <div class="single-attraction">
+                    <img class="attraction-tile" alt="Wykres">
+                    <p class="attraction-title">Jakiś tam przykładowy tytuł</p>
+                </div>
+                <div class="single-attraction">
+                    <img class="attraction-tile" alt="Wykres">
+                    <p class="attraction-title">Jakiś tam przykładowy tytuł</p>
+                </div>
+                <div class="single-attraction">
+                    <img class="attraction-tile" alt="Wykres">
+                    <p class="attraction-title">Jakiś tam przykładowy tytuł</p>
+                </div>
+            </div>
+        </section>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/js/index.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
     </body>
 </html>

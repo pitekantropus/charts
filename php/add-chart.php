@@ -4,6 +4,7 @@ assertPost();
 
 require_once 'utils/DBConnection.php';
 require_once 'utils/FileUpload.php';
+require_once 'utils/Imager.php';
 require_once 'utils/Constants.php';
 
 $chartFile = new FileUpload('chart-file');
@@ -23,6 +24,7 @@ $startMonth = $db->safeString($_POST['start-month']);
 $startYear = $db->safeString($_POST['start-year']);
 $endMonth = $db->safeString($_POST['end-month']);
 $endYear = $db->safeString($_POST['end-year']);
+$base64Image = $_POST['base64-image'];
 
 $categories = '';
 if(empty($_POST['categories'])) {
@@ -53,6 +55,11 @@ if(!$result) {
 
 $lastId = $db->lastId();
 $chartFile->moveDataFile($lastId, $fileName);
+$imager = new Imager($lastId);
+if(!empty($base64Image)) {
+    $imager->saveBase64Image($base64Image);
+}
+$imager->generateScaledImages();
 
-header("location: /charts/$lastId/");
+header("location: /charts/$urlName-$lastId/");
 ?>

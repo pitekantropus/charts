@@ -118,7 +118,7 @@ function encodeTimespan($startMonth, $startYear, $endMonth, $endYear) {
     if(!empty($startYear)) {
         $timespan .= $startYear;
     }
-    $timespan .= ';';
+    $timespan .= ' - ';
     if(!empty($endMonth)) {
         $timespan = $endMonth . '.';
     }

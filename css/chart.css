@@ -55,12 +55,17 @@ h1 {
     margin-right: 15px;
 }
 
-#source {
+#source, #add-date {
     font-family: Roboto;
     font-size: 13px;
     color: #7A7B7C;
+    word-break: break-all;
 }
 
-#source a {
+#add-date {
+    margin-bottom: 10px;
+}
+
+#source a, #add-date span {
     color: #000000;
 }

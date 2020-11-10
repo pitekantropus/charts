@@ -34,7 +34,7 @@ foreach($rows as $row) {
     $sourceUrl = $row['source'];
     $title = $row['title'];
     $categories = $row['categories'];
-    $timespan = $row['timespan'];
+    $timespan = encodeTimespan($row['startMonth'], $row['startYear'], $row['endMonth'], $row['endYear']);
     $country = $row['country'];
     $id = $row['id'];
     $urlName = $row['urlName'];

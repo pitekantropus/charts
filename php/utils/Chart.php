@@ -46,7 +46,7 @@ class Chart {
         $this->endYear = $result['endYear'];
         $this->source = $result['source'];
         $this->description = $result['description'];
-        $this->addDate = date('d-m-Y', strtotime($result['createTimestamp']));
+        $this->addDate = date('d.m.Y', strtotime($result['createTimestamp']));
         $this->chartType = $result['type'];
         $fileDir = self::DATA_DIR . $this->id . '/';
         switch($this->chartType) {
@@ -72,8 +72,9 @@ class Chart {
         echo '</div>';
     }
 
-    public function printChartSection() {
-        echo "<h1 id='title'>$this->title</h1>";
+    public function printChartSection($logged) {
+        $editButton = $logged ? "<a href='/edit-charts/$this->id/'>[Edytuj]</a>" : '';
+        echo "<h1 id='title'>$this->title $editButton</h1>";
         echo "<div id='chart-and-data-container'>";
         switch($this->chartType) {
             case Constants::IMAGE_TYPE:
@@ -89,7 +90,7 @@ class Chart {
         echo '<div id="data-container">';
         echo '<p id="description">' . $this->description . '</p>';
         $this->printLabels('categories');
-        echo "<p id='addDate'>Data dodania: <span>$this->addDate</span></p>";
+        echo "<p id='add-date'>Data dodania: <span>$this->addDate</span></p>";
         echo '<p id="source">Źródło: <a href="' . $this->source . '">' . $this->source . '</a></p>';
         echo '</div>';
         echo '</div>';

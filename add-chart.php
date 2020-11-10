@@ -5,6 +5,7 @@ if(!$session->checkPermission('add-chart')) {
     header("location: /");
 }
 require_once('php/utils/Constants.php');
+require_once('php/utils/include-functions.php');
 
 function printMonthsOptions() {
     echo "<option value='0'>Miesiąc (opcjonalnie)</option>";
@@ -34,7 +35,11 @@ function printCategoriesCheckboxes() {
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     </head>
     <body>
+<?php
+includeTopBar(true);
+?>
         <form id="add-chart-form" method="POST" enctype="multipart/form-data" action="/php/add-chart.php">
+            <input type="hidden" name="base64-image" value="">
             <h1>Dodaj wykres</h1>
             <h3>Opis wykresu</h3>
             <label class="input-label"><span class="label-header">Nazwa</span>

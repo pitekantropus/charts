@@ -4,11 +4,13 @@ $session = new Session();
 if(!$session->checkPermission('admin')) {
     header("location: /");
 }
-require_once('php/utils/Chart.php');
 if(!isset($_GET['id'])) {
     die('No id provided!');
 }
 $id = $_GET['id'];
+
+require_once('php/utils/Chart.php');
+require_once('php/utils/include-functions.php');
 
 function printMonthsOptions($month) {
     echo "<option value='0'>Miesiąc (opcjonalnie)</option>";
@@ -49,6 +51,9 @@ $endYear = $chart->endYear == 0 ? '' : $chart->endYear;
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     </head>
     <body data-id="<?= $id?>">
+<?php
+includeTopBar(true);
+?>
         <form id="edit-chart-form" method="POST" enctype="multipart/form-data" action="/php/edit-chart.php">
             <input type="hidden" name="id" value="<?php echo $id;?>">
             <h1>Edytuj wykres</h1>

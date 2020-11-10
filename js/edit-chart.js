@@ -23,11 +23,12 @@ function setChartType(type, setRadio) {
 }
 
 function drawPreview(content, canvasId) {
-    const chart = drawChart(content, canvasId, false);
+    const title = $("[name=title]").val();
+    const chart = drawChart(content, canvasId, title, false);
 
     const base64 = chart.toBase64Image();
     var image = new Image();
-    image.className = 'preview-image';
+    image.id = 'preview-image';
     var container = $("#chart-preview-area");
     image.src = base64;
     container.append(image);
@@ -46,7 +47,7 @@ function generateCurrentChartPreview(type) {
     var container = $("#chart-preview-area");
     if(type == 'IMAGE') {
         var image = new Image();
-        image.className = 'preview-image';
+        image.id = 'preview-image';
         image.src = '/data/' + id + '/image.jpg';
         container.append(image);
     } else if(type == 'DATA') {
@@ -79,7 +80,7 @@ function generatePreviewChart() {
         var reader = new FileReader();
         reader.onload = function (readerEvent) {
             var image = new Image();
-            image.className = 'preview-image';
+            image.id = 'preview-image';
             image.onload = function () {
                 var container = $("#chart-preview-area");
                 container.append(image);
@@ -103,6 +104,14 @@ function generatePreviewChart() {
     }
 
     return true;
+}
+
+function validate() {
+    const type = $("[name=chart-type]:checked").val();
+    if(type == 'DATA') {
+        const base64Data = ("#preview-image").attr("src");
+        $.post("/php/ajax/save-base64-image.php", {data: base64Data, path: "data/image.png"});
+    }
 }
 
 function init() {

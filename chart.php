@@ -38,7 +38,7 @@ includeTopBar($logged);
 ?>
         <div id="chart-section">
 <?php
-$chart->printChartSection();
+$chart->printChartSection($logged);
 ?>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

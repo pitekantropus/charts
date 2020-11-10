@@ -16,11 +16,12 @@ function handleChartType() {
 }
 
 function drawPreview(content, canvasId) {
-    const chart = drawChart(content, canvasId, false);
+    const title = $("[name=title]").val();
+    const chart = drawChart(content, canvasId, title, false);
 
     const base64 = chart.toBase64Image();
     var image = new Image();
-    image.className = 'preview-image';
+    image.id = 'preview-image';
     var container = $("#chart-preview-area");
     image.src = base64;
     container.append(image);
@@ -46,7 +47,7 @@ function generatePreviewChart() {
         var reader = new FileReader();
         reader.onload = function (readerEvent) {
             var image = new Image();
-            image.className = 'preview-image';
+            image.id = 'preview-image';
             image.onload = function () {
                 var container = $("#chart-preview-area");
                 container.append(image);
@@ -72,7 +73,16 @@ function generatePreviewChart() {
     return true;
 }
 
+function validate() {
+    const type = $("[name=chart-type]:checked").val();
+    if(type == 'DATA') {
+        const base64Data = $("#preview-image").attr("src");
+        $("input[name=base64-image").val(base64Data);
+    }
+}
+
 $(function() {
     $("[name=chart-type]").click(handleChartType);
     $("#chart-file-button").change(generatePreviewChart);
+    $("#add-chart-form").submit(validate);
 });

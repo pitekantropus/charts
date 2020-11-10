@@ -1,3 +1,7 @@
+#top-bar {
+    box-shadow: 6px 6px 13px rgba(33, 65, 119, 0.07);
+}
+
 .horizontal-container {
     display: flex;
     justify-content: space-between;
@@ -137,7 +141,7 @@ textarea {
     padding: 20px;
 }
 
-.preview-image {
+#preview-image {
     max-width: 100%;
 }
 
