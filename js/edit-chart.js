@@ -109,8 +109,8 @@ function generatePreviewChart() {
 function validate() {
     const type = $("[name=chart-type]:checked").val();
     if(type == 'DATA') {
-        const base64Data = ("#preview-image").attr("src");
-        $.post("/php/ajax/save-base64-image.php", {data: base64Data, path: "data/image.png"});
+        const base64Data = $("#preview-image").attr("src");
+        $("input[name=base64-image").val(base64Data);
     }
 }
 
@@ -123,5 +123,6 @@ function init() {
 $(function() {
     $("[name=chart-type]").click(handleChartType);
     $("#chart-file-button").change(generatePreviewChart);
+    $("#add-chart-form").submit(validate);
     init();
 });

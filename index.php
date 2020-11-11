@@ -47,23 +47,7 @@ includeTopBar($logged);
                     </label>
                 </div>
             </div>
-            <div class="section-attractions" id="this-week-attractions">
-                <div class="single-attraction">
-                    <img class="attraction-tile" alt="Wykres">
-                    <p class="attraction-title">Jakiś tam przykładowy tytuł</p>
-                </div>
-                <div class="single-attraction">
-                    <img class="attraction-tile" alt="Wykres">
-                    <p class="attraction-title">Jakiś tam przykładowy tytuł</p>
-                </div>
-                <div class="single-attraction">
-                    <img class="attraction-tile" alt="Wykres">
-                    <p class="attraction-title">Jakiś tam przykładowy tytuł</p>
-                </div>
-                <div class="single-attraction">
-                    <img class="attraction-tile" alt="Wykres">
-                    <p class="attraction-title">Jakiś tam przykładowy tytuł</p>
-                </div>
+            <div class="section-charts" id="this-week-charts">
             </div>
         </section>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

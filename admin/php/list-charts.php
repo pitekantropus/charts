@@ -22,12 +22,12 @@ function printLabels($labels) {
 }
 
 echo '<tr>';
+echo '<th class="select-col"></td>';
 echo '<th class="title-col">Nazwa</td>';
 echo '<th class="categories-col">Kategorie</td>';
 echo '<th class="timespan-col">Przedział czasowy</td>';
 echo '<th class="country-col">Państwo</td>';
 echo '<th class="source-col">Źródło</td>';
-echo '<th class="action-col">Akcja</td>';
 echo '</tr>';
 
 foreach($rows as $row) {
@@ -38,7 +38,8 @@ foreach($rows as $row) {
     $country = $row['country'];
     $id = $row['id'];
     $urlName = $row['urlName'];
-    echo '<tr>';
+    echo "<tr>";
+    echo "<td class='select-cell'><input type='checkbox' class='select-checkbox' value='$id'></td>";
     echo "<td class='title-cell'><a href='/charts/$urlName-$id/'>$title</a></td>";
     echo '<td class="labels-cell">';
     printLabels($categories);
@@ -46,11 +47,7 @@ foreach($rows as $row) {
     echo "<td>$timespan</td>";
     echo "<td>$country</td>";
     echo "<td class='source-cell'><a href='$sourceUrl'>$sourceUrl</a></td>";
-    echo '<td class="action-cell">';
-    echo "<a class='action' href='/edit-charts/$id/'><div class='icon-container'><img src='/admin/images/edit-icon.svg'></div><span>Edytuj</span></a>";
-    echo "<button class='action hide' data-id='$id'><div class='icon-container'><img src='/admin/images/hide-icon.svg'></div><span>Ukryj</span></button>";
-    echo "<button class='action remove' data-id='$id'><div class='icon-container'><img src='/admin/images/delete-icon.svg'></div><span>Usuń</span></button>";
-    echo '</td>';
+    // echo "<a class='action' href='/edit-charts/$id/'><div class='icon-container'><img src='/admin/images/edit-icon.svg'></div><span>Edytuj</span></a>";
     echo '</tr>';
 }
 

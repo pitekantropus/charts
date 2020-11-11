@@ -56,6 +56,7 @@ includeTopBar(true);
 ?>
         <form id="edit-chart-form" method="POST" enctype="multipart/form-data" action="/php/edit-chart.php">
             <input type="hidden" name="id" value="<?php echo $id;?>">
+            <input type="hidden" name="base64-image" value="">
             <h1>Edytuj wykres</h1>
             <h3>Opis wykresu</h3>
             <label class="input-label"><span class="label-header">Nazwa</span>

@@ -114,26 +114,26 @@ input[type=radio]:checked + span {
     color: rgba(0, 0, 0, 1);
 }
 
-/* ATTRACTIONS */
-.section-attractions {
+/* CHARTS */
+.section-charts {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-.single-attraction {
+.single-chart, .fake-chart {
     width: 315px;
 }
 
-.attraction-tile {
+.chart-tile {
     width: 315px;
     height: 222px;
     object-fit: cover;
-    object-position: center;
+    object-position: left;
     margin-bottom: 19px;
 }
 
-.attraction-title {
+.chart-title {
     font-family: Poppins;
     font-size: 14px;
 }

@@ -21,6 +21,22 @@ require_once('php/include-functions.php');
 <?php
 includeTopBar();
 ?>
+        <div id="edit-bar-container">
+            <div id="edit-bar">
+                <button id="edit-button" class='action' data-id='$id'>
+                    <div class='icon-container'><img src='/admin/images/edit-icon.svg'></div>
+                    <span>Edytuj</span>
+                </button>
+                <button id="hide-button" class='action' data-id='$id'>
+                    <div class='icon-container'><img src='/admin/images/hide-icon.svg'></div>
+                    <span>Ukryj</span>
+                </button>
+                <button id="remove-button" class='action' data-id='$id'>
+                    <div class='icon-container'><img src='/admin/images/delete-icon.svg'></div>
+                    <span>Usuń</span>
+                </button>
+            </div>
+        </div>
         <section id="charts-section">
             <table id="charts-table"></table>
         </section>

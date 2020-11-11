@@ -43,10 +43,13 @@ class DBConnection {
         return null;
     }
 
-    public function fetchFromTable($table, $columns, $conditions = null) {
+    public function fetchFromTable($table, $columns, $conditions = null, $limit = null) {
         $query = "SELECT $columns FROM $table";
         if(!is_null($conditions)) {
             $query .= " WHERE $conditions";
+        }
+        if(!is_null($limit)) {
+            $query .= " LIMIT $limit";
         }
         $result = $this->connection->query($query);
         if(!$result) {
@@ -88,6 +91,14 @@ class DBConnection {
             return false;
         }
         return true;
+    }
+
+    public function removeFromTableById($table, $id) {
+        $this->removeFromTable($table, "id = '$id'");
+    }
+
+    public function removeFromTable($table, $condition) {
+        return $this->query("DELETE FROM $table WHERE $condition");
     }
 }
 ?>

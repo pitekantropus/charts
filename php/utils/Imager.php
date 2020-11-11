@@ -45,7 +45,7 @@ class Imager {
         $thumbnail = $this->getScaledImageCover($this->originalImage, 350, 300);
         $this->log("thumbnail: $thumbnail");
         imagejpeg($bigImage, $this->bigImage, 80);
-        imagejpeg($thumbnail, $this->thumbnail, 70);
+        imagejpeg($thumbnail, $this->thumbnail, 100);
     }
 
     private function convertPngToJpg($sourcePath, $destinationPath) {
@@ -68,10 +68,14 @@ class Imager {
         if($width > $max_width || $height > $max_height) {
             if($ratio > $max_ratio) {
                 $new_height = round($max_width / $ratio);
-                return imagescale($image, $max_width, $new_height);
+                $newImage = imagecreatetruecolor($max_width, $new_height);
+                imagecopyresampled($newImage, $image, 0, 0, 0, 0, $max_width, $new_height, $width, $height);
+                return $newImage;
             } else {
                 $new_width = round($max_height * $ratio);
-                return imagescale($image, $new_width, $max_height);
+                $newImage = imagecreatetruecolor($new_width, $max_height);
+                imagecopyresampled($newImage, $image, 0, 0, 0, 0, $new_width, $max_height, $width, $height);
+                return $newImage;
             }
         }
         return $image;
@@ -85,12 +89,17 @@ class Imager {
         if($width > $max_width && $height > $max_height) {
             if($ratio < $max_ratio) {
                 $new_height = round($max_width / $ratio);
-                return imagescale($image, $max_width, $new_height);
+                $newImage = imagecreatetruecolor($max_width, $new_height);
+                imagecopyresampled($newImage, $image, 0, 0, 0, 0, $max_width, $new_height, $width, $height);
+                return $newImage;
             } else {
                 $new_width = round($max_height * $ratio);
-                return imagescale($image, $new_width, $max_height);
+                $newImage = imagecreatetruecolor($new_width, $max_height);
+                imagecopyresampled($newImage, $image, 0, 0, 0, 0, $new_width, $max_height, $width, $height);
+                return $newImage;
             }
         }
+
         return $image;
     }
 }
